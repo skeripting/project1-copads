@@ -1,4 +1,7 @@
-class SingleThreadedSearch : SearchAlgorithm {
+using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+
+class MultiThreadedSearch : SearchAlgorithm {
     private string startDirectory; 
     private long totalBytes; 
     public override long TotalBytes {
@@ -28,12 +31,14 @@ class SingleThreadedSearch : SearchAlgorithm {
     }
 
     private int numImages = 0;
+    private object thisLock = new object();
+
     public override int NumImages {
         get { return numImages; }
         set { numImages = value; }
     }
 
-    public SingleThreadedSearch(string startDirectory) {
+    public MultiThreadedSearch(string startDirectory) {
         this.startDirectory = startDirectory;
     }
 
@@ -49,7 +54,7 @@ class SingleThreadedSearch : SearchAlgorithm {
             Console.WriteLine("ERROR in reading the files and directories in " + startDirectory + ", skipped.");
         }
 
-        foreach (string filePath in fileNames) {
+        Parallel.ForEach(fileNames, filePath => {
             FileInfo fileInfo;
 
             try {
@@ -57,40 +62,46 @@ class SingleThreadedSearch : SearchAlgorithm {
             }
             catch (Exception) {
                 Console.WriteLine("ERROR in extracting file info for " + filePath + ", skipped.");
-                continue; 
+                return;
             }
             
             long fileLength = fileInfo.Length;
             string extension = Path.GetExtension(filePath);
 
-            if (Constants.ImageExtensions.ContainsKey(extension)) {
-                numImages += 1;
-                totalImageBytes += fileLength;
-            }
+            lock (thisLock) {
 
-            numFiles += 1;
-            totalBytes += fileLength;
-        }
+                if (Constants.ImageExtensions.ContainsKey(extension)) {
+                    numImages += 1;
+                    totalImageBytes += fileLength;
+                }
+
+                numFiles += 1;
+                totalBytes += fileLength;
+            }
+        });
 
         if (numImages > 0) { 
             imagesFoundInDirectory = true;
         }
         
-        foreach (string directoryPath in directories) {
+        Parallel.ForEach(directories, directoryPath => {
             numFolders += 1;
 
-            SingleThreadedSearch sts = new SingleThreadedSearch(directoryPath);
+            MultiThreadedSearch sts = new MultiThreadedSearch(directoryPath);
             sts.Search();
 
-            numFiles += sts.NumFiles;
-            numFolders += sts.NumFolders;
-            numImages += sts.NumImages;
-            totalImageBytes += sts.TotalImageBytes;
-            totalBytes += sts.TotalBytes;
+            lock(thisLock) {
+                numFiles += sts.NumFiles;
+                numFolders += sts.NumFolders;
+                numImages += sts.NumImages;
+                totalImageBytes += sts.TotalImageBytes;
+                totalBytes += sts.TotalBytes;
+            }
+            
 
             if (sts.ImagesFoundInDirectory == true) {
                 imagesFoundInDirectory = true;
             }
-        }
+        });
     }
 }

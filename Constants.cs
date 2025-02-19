@@ -6,4 +6,9 @@ public static class Constants {
         { ".jpeg", true },
         { ".bmp", true }
     };
+
+    public enum SearchMode {
+        Sequential,
+        Parallel
+    }
 }

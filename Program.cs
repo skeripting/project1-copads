@@ -17,6 +17,37 @@ Runs parallel followed by sequential mode";
         Console.WriteLine(HELP_MESSAGE);
     }
 
+    static void RunSearch(Constants.SearchMode searchMode, string path) {
+        DateTime start = DateTime.Now;
+
+        SearchAlgorithm searchAlgorithm;
+
+        if (searchMode == Constants.SearchMode.Sequential) {
+            searchAlgorithm = new SingleThreadedSearch(path);
+            searchAlgorithm.Search();
+        }
+        else if (searchMode == Constants.SearchMode.Parallel) {
+            searchAlgorithm = new MultiThreadedSearch(path);
+            searchAlgorithm.Search();
+        }
+        else {
+            throw new ArgumentException("Invalid Search Mode.");
+        }
+
+        DateTime end = DateTime.Now; 
+
+        TimeSpan elapsed = end - start;
+
+        Console.WriteLine(searchMode + " Calculated in: " + elapsed.TotalSeconds + "s");
+
+        Console.WriteLine(searchAlgorithm.NumFolders + " folders, " + searchAlgorithm.NumFiles + " files, " + searchAlgorithm.TotalBytes +" bytes");
+        Console.WriteLine(searchAlgorithm.NumImages + " image files, " + searchAlgorithm.TotalImageBytes + " bytes");
+
+        if (searchAlgorithm.ImagesFoundInDirectory == false) {
+            Console.WriteLine("No image files found in the directory.");
+        }
+    }
+
     static void Main(string[] args) {
         string modeParameter;
         string pathParameter;
@@ -41,29 +72,15 @@ Runs parallel followed by sequential mode";
         Console.WriteLine();
 
         if (modeParameter == COMMAND_LINE_PARAMETER_SINGLE_THREADED_MODE) {
-            DateTime start = DateTime.Now;
-
-            SingleThreadedSearch sts = new SingleThreadedSearch(pathParameter);
-            sts.Search();
-
-            DateTime end = DateTime.Now; 
-
-            TimeSpan elapsed = end - start;
-
-            Console.WriteLine("Sequential Calculated in: " + elapsed.TotalSeconds + "s");
-
-            Console.WriteLine(sts.NumFolders + " folders, " + sts.NumFiles + " files, " + sts.TotalBytes +" bytes");
-            Console.WriteLine(sts.NumImages + " image files, " + sts.TotalImageBytes + " bytes");
-
-            if (sts.ImagesFoundInDirectory == false) {
-                Console.WriteLine("No image files found in the directory.");
-            }
+            RunSearch(Constants.SearchMode.Sequential, pathParameter);
         }
         else if (modeParameter == COMMAND_LINE_PARAMETER_MULTI_THREADED_MODE) {
-
+            RunSearch(Constants.SearchMode.Parallel, pathParameter);
         }
         else if (modeParameter == COMMAND_LINE_PARAMETER_BOTH_MODE) {
-            
+            RunSearch(Constants.SearchMode.Parallel, pathParameter);
+            Console.WriteLine();
+            RunSearch(Constants.SearchMode.Sequential, pathParameter);
         }
         else {
             DisplayHelp();
