@@ -12,3 +12,4 @@
 /Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.pdb
 /Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.genruntimeconfig.cache
 /Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/ref/project1.dll
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.sourcelink.json
