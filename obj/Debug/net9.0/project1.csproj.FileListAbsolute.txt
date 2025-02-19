@@ -1,0 +1,14 @@
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/bin/Debug/net9.0/project1
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/bin/Debug/net9.0/project1.deps.json
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/bin/Debug/net9.0/project1.runtimeconfig.json
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/bin/Debug/net9.0/project1.dll
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/bin/Debug/net9.0/project1.pdb
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.AssemblyInfoInputs.cache
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.AssemblyInfo.cs
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.csproj.CoreCompileInputs.cache
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.dll
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/refint/project1.dll
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.pdb
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/project1.genruntimeconfig.cache
+/Users/kushaltimsina/Documents/University/Spring 2025/Parallel and Distributed Systems/project1/obj/Debug/net9.0/ref/project1.dll
