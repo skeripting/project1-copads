@@ -1,5 +1,5 @@
 public abstract class SearchAlgorithm {
-    public abstract void Search();
+    public abstract bool Search();
     public abstract long TotalBytes { get; set; }
     public abstract long TotalImageBytes { get; set; }
     public abstract int NumFiles { get; set; }

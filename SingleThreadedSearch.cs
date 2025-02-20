@@ -37,7 +37,7 @@ class SingleThreadedSearch : SearchAlgorithm {
         this.startDirectory = startDirectory;
     }
 
-    public override void Search() {
+    public override bool Search() {
         string[] fileNames = [];
         string[] directories = [];
 
@@ -47,6 +47,7 @@ class SingleThreadedSearch : SearchAlgorithm {
         }
         catch (Exception) {
             Console.WriteLine("ERROR in reading the files and directories in " + startDirectory + ", skipped.");
+            return false;
         }
 
         foreach (string filePath in fileNames) {
@@ -92,5 +93,7 @@ class SingleThreadedSearch : SearchAlgorithm {
                 imagesFoundInDirectory = true;
             }
         }
+        
+        return true; 
     }
 }

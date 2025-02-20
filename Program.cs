@@ -21,17 +21,24 @@ Runs parallel followed by sequential mode";
         DateTime start = DateTime.Now;
 
         SearchAlgorithm searchAlgorithm;
+        bool algorithmRanCompletely = false; 
 
         if (searchMode == Constants.SearchMode.Sequential) {
             searchAlgorithm = new SingleThreadedSearch(path);
-            searchAlgorithm.Search();
+            algorithmRanCompletely = searchAlgorithm.Search();
         }
         else if (searchMode == Constants.SearchMode.Parallel) {
             searchAlgorithm = new MultiThreadedSearch(path);
-            searchAlgorithm.Search();
+            algorithmRanCompletely = searchAlgorithm.Search();
         }
         else {
-            throw new ArgumentException("Invalid Search Mode.");
+            return;
+        }
+
+        if (algorithmRanCompletely == false) {
+            Console.WriteLine();
+            DisplayHelp();
+            return;
         }
 
         DateTime end = DateTime.Now; 
@@ -41,10 +48,12 @@ Runs parallel followed by sequential mode";
         Console.WriteLine(searchMode + " Calculated in: " + elapsed.TotalSeconds + "s");
 
         Console.WriteLine(searchAlgorithm.NumFolders + " folders, " + searchAlgorithm.NumFiles + " files, " + searchAlgorithm.TotalBytes +" bytes");
-        Console.WriteLine(searchAlgorithm.NumImages + " image files, " + searchAlgorithm.TotalImageBytes + " bytes");
-
+        
         if (searchAlgorithm.ImagesFoundInDirectory == false) {
             Console.WriteLine("No image files found in the directory.");
+        }
+        else { 
+            Console.WriteLine(searchAlgorithm.NumImages + " image files, " + searchAlgorithm.TotalImageBytes + " bytes");
         }
     }
 

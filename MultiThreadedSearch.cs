@@ -42,7 +42,7 @@ class MultiThreadedSearch : SearchAlgorithm {
         this.startDirectory = startDirectory;
     }
 
-    public override void Search() {
+    public override bool Search() {
         string[] fileNames = [];
         string[] directories = [];
 
@@ -51,7 +51,8 @@ class MultiThreadedSearch : SearchAlgorithm {
             directories = Directory.GetDirectories(startDirectory);
         }
         catch (Exception) {
-            Console.WriteLine("ERROR in reading the files and directories in " + startDirectory + ", skipped.");
+            Console.WriteLine("ERROR in reading the files and directories in " + startDirectory + ".");
+            return false;
         }
 
         Parallel.ForEach(fileNames, filePath => {
@@ -103,5 +104,7 @@ class MultiThreadedSearch : SearchAlgorithm {
                 imagesFoundInDirectory = true;
             }
         });
+        
+        return true; 
     }
 }
